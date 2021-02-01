@@ -1,13 +1,13 @@
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 
-public class Game extends Canvas implements Runnable  {
+public class Game extends Canvas implements Runnable {
 
     private boolean isRunning = false;
     private Thread thread;
 
     public Game() {
-        new Window(800, 800, "sandbox", this);
+        new Window(Constants.SIZE, Constants.TITLE, this);
         start();
     }
 
@@ -19,6 +19,7 @@ public class Game extends Canvas implements Runnable  {
 
     private void stop() {
         isRunning = false;
+
         try {
             thread.join();
         } catch (InterruptedException e) {
@@ -66,7 +67,7 @@ public class Game extends Canvas implements Runnable  {
 
 
         g.setColor(Color.BLACK);
-        g.fillRect(0, 0, 800, 800);
+        g.fillRect(0, 0, Constants.WIDTH, Constants.HEIGHT);
 
 
         g.dispose();
