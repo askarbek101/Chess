@@ -1,7 +1,7 @@
 import java.awt.*;
 
 public abstract class GameObject {
-    public float x;
+    private float x;
     private float y;
     private ObjectId objectId;
 

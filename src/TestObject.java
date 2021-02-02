@@ -13,8 +13,6 @@ public class TestObject extends GameObject {
 
     @Override
     public void render(Graphics g) {
-        System.out.println(x);
-        System.out.println(getY());
         g.setColor(Color.WHITE);
         g.fillRect((int) getX(), (int) getY(), Constants.BLOCK_SIZE, Constants.BLOCK_SIZE);
     }
