@@ -8,6 +8,7 @@ public class Handler {
         for (GameObject tempObject: objects) {
             tempObject.tick();
         }
+
     }
 
     public void render(Graphics g) {
