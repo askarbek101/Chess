@@ -6,6 +6,7 @@ import java.io.IOException;
 public class Game extends Canvas implements Runnable {
     public boolean isRunning = false;
     public Thread thread;
+    public final Handler handler;
 
     public BufferedImage spriteSheet = null;
 
@@ -20,6 +21,10 @@ public class Game extends Canvas implements Runnable {
         }
 
         start();
+
+        handler = new Handler();
+
+        handler.addObject(new TestObject(50, 50, ObjectId.Test));
     }
 
     public void start() {
@@ -65,7 +70,9 @@ public class Game extends Canvas implements Runnable {
         stop();
     }
 
-    public void tick() { }
+    public void tick() {
+        handler.tick();
+    }
 
     public void render() {
         BufferStrategy bs = this.getBufferStrategy();
@@ -80,6 +87,7 @@ public class Game extends Canvas implements Runnable {
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, Constants.WIDTH, Constants.HEIGHT);
 
+        handler.render(g);
 
         g.dispose();
         bs.show();
