@@ -24,6 +24,7 @@ public class Game extends Canvas implements Runnable {
 
         handler = new Handler();
         this.addKeyListener(new KeyInput(handler));
+        this.addMouseListener(new MouseInput(handler));
 
         handler.addObject(new TestObject(50, 50, ObjectId.TestObject));
     }
