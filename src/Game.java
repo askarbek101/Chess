@@ -1,23 +1,34 @@
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public class Game extends Canvas implements Runnable {
+    public boolean isRunning = false;
+    public Thread thread;
 
-    private boolean isRunning = false;
-    private Thread thread;
+    public BufferedImage spriteSheet = null;
 
     public Game() {
         new Window(Constants.SIZE, Constants.TITLE, this);
+
+        BufferedImageLoader loader = new BufferedImageLoader();
+        try {
+            spriteSheet = loader.loadImage("/sprite_sheet.png");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         start();
     }
 
-    private void start() {
+    public void start() {
         isRunning = true;
         thread = new Thread(this);
         thread.start();
     }
 
-    private void stop() {
+    public void stop() {
         isRunning = false;
 
         try {
