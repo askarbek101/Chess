@@ -1,24 +1,21 @@
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 public class Game extends Canvas implements Runnable {
     public boolean isRunning = false;
     public Thread thread;
     public final Handler handler;
 
-    public BufferedImage spriteSheet = null;
+    public BufferedImage level;
+    public BufferedImage pieces;
 
     public Game() {
         new Window(Constants.SIZE, Constants.TITLE, this);
 
         BufferedImageLoader loader = new BufferedImageLoader();
-        try {
-            spriteSheet = loader.loadImage("/sprite_sheet.png");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        level = loader.loadImage("/board.png");
+        pieces = loader.loadImage("/pieces.png");
 
         start();
 
@@ -26,7 +23,7 @@ public class Game extends Canvas implements Runnable {
         this.addKeyListener(new KeyInput(handler));
         this.addMouseListener(new MouseInput(handler));
 
-        handler.addObject(new TestObject(50, 50, ObjectId.TestObject));
+        loadLevel(level, pieces);
     }
 
     public void start() {
@@ -93,6 +90,24 @@ public class Game extends Canvas implements Runnable {
 
         g.dispose();
         bs.show();
+    }
+
+    public void loadLevel(BufferedImage image, BufferedImage pieces) {
+        int w = image.getWidth();
+        int h = image.getHeight();
+
+        for (int xx = 0; xx < w; xx++) {
+            for (int yy = 0; yy < h; yy++) {
+                int pixel = image.getRGB(xx, yy);
+                int red = (pixel >> 16) & 0xff;
+                int green = (pixel >> 8) & 0xff;
+                int blue = (pixel) & 0xff;
+
+                if (red == 0 && green == 0 & blue == 0) {
+                    handler.addObject(new Block(xx * Constants.BLOCK_SIZE, yy * Constants.BLOCK_SIZE, ObjectId.Block));
+                }
+            }
+        }
     }
 
     public static void main(String[] args) {
