@@ -6,11 +6,11 @@ import utilities.SpriteSheet;
 
 import java.util.ArrayList;
 
-public class Queen extends Piece {
-    public Queen(float x, float y, ObjectId objectId, SpriteSheet ss) {
+public class Rook extends Piece {
+    public Rook(float x, float y, ObjectId objectId, SpriteSheet ss) {
         super(x, y, objectId, ss);
 
-        setPiece_image(ss.grabImage(2, 1, 82, 82));
+        setPiece_image(ss.grabImage(5, 1, 82, 82));
     }
 
     @Override

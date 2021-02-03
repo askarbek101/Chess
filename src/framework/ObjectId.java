@@ -3,5 +3,5 @@ package framework;
 public enum ObjectId {
     TestObject(),
     Block(),
-    Queen(),
+    Queen(), Knight(), Rook(), Bishop(), King(), Pawn(),
 }

@@ -2,8 +2,7 @@ package window;
 
 import framework.Constants;
 import framework.ObjectId;
-import objects.Block;
-import objects.Queen;
+import objects.*;
 import utilities.BufferedImageLoader;
 import utilities.KeyInput;
 import utilities.MouseInput;
@@ -25,8 +24,8 @@ public class Game extends Canvas implements Runnable {
         new Window(Constants.SIZE, Constants.TITLE, this);
 
         BufferedImageLoader loader = new BufferedImageLoader();
-        level = loader.loadImage("/board.png");
-        pieces = loader.loadImage("/pieces.png");
+        level = loader.loadImage("/resources/board.png");
+        pieces = loader.loadImage("/resources/pieces.png");
 
         start();
 
@@ -80,9 +79,7 @@ public class Game extends Canvas implements Runnable {
         stop();
     }
 
-    public void tick() {
-        handler.tick();
-    }
+    public void tick() { handler.tick(); }
 
     public void render() {
         BufferStrategy bs = this.getBufferStrategy();
@@ -115,14 +112,37 @@ public class Game extends Canvas implements Runnable {
                 int blue = (pixel) & 0xff;
 
                 if (red == 0 && green == 0 & blue == 0) {
-                    handler.addObject(new Block(xx * Constants.BLOCK_SIZE, yy * Constants.BLOCK_SIZE, ObjectId.Block));
+                    Block block = new Block(xx * Constants.BLOCK_SIZE, yy * Constants.BLOCK_SIZE, ObjectId.Block);
+                    block.setColour(new Color(0, 148, 255));
+                    handler.addObject(block);
+                }
+                if (red == 255 && green == 255 & blue == 255) {
+                    Block block = new Block(xx * Constants.BLOCK_SIZE, yy * Constants.BLOCK_SIZE, ObjectId.Block);
+                    block.setColour(new Color(128, 128, 128));
+                    handler.addObject(block);
                 }
             }
         }
 
         SpriteSheet ss = new SpriteSheet(pieces);
 
-        handler.addObject(new Queen(50, 50, ObjectId.Queen, ss));
+
+        handler.addObject(new Bishop(0, 448, ObjectId.Bishop, ss));
+        handler.addObject(new Knight(64, 448, ObjectId.Knight, ss));
+        handler.addObject(new Bishop(128, 448, ObjectId.Bishop, ss));
+        handler.addObject(new Queen(192, 448, ObjectId.Queen, ss));
+        handler.addObject(new King(256, 448, ObjectId.King, ss));
+        handler.addObject(new Bishop(320, 448, ObjectId.Bishop, ss));
+        handler.addObject(new Knight(384, 448, ObjectId.Knight, ss));
+        handler.addObject(new Rook(448, 448, ObjectId.Rook, ss));
+        handler.addObject(new Pawn(0, 384, ObjectId.Pawn, ss));
+        handler.addObject(new Pawn(64, 384, ObjectId.Pawn, ss));
+        handler.addObject(new Pawn(128, 384, ObjectId.Pawn, ss));
+        handler.addObject(new Pawn(192, 384, ObjectId.Pawn, ss));
+        handler.addObject(new Pawn(256, 384, ObjectId.Pawn, ss));
+        handler.addObject(new Pawn(320, 384, ObjectId.Pawn, ss));
+        handler.addObject(new Pawn(384, 384, ObjectId.Pawn, ss));
+        handler.addObject(new Pawn(448, 384, ObjectId.Pawn, ss));
     }
 
     public static void main(String[] args) {

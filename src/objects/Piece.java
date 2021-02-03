@@ -10,12 +10,13 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public abstract class Piece extends GameObject {
+
     private BufferedImage piece_image;
 
     public Piece(float x, float y, ObjectId objectId, SpriteSheet ss) {
         super(x, y, objectId);
 
-        piece_image = ss.grabImage(2, 1, 83, 83);
+
     }
 
     @Override
@@ -42,4 +43,5 @@ public abstract class Piece extends GameObject {
     public void setPiece_image(BufferedImage piece_image) {
         this.piece_image = piece_image;
     }
+
 }
