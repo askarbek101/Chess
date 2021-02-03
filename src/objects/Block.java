@@ -1,3 +1,9 @@
+package objects;
+
+import framework.Constants;
+import framework.GameObject;
+import framework.ObjectId;
+
 import java.awt.*;
 
 public class Block extends GameObject {

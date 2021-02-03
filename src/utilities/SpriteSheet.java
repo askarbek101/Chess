@@ -1,3 +1,5 @@
+package utilities;
+
 import java.awt.image.BufferedImage;
 
 public class SpriteSheet {
@@ -9,8 +11,8 @@ public class SpriteSheet {
 
     public BufferedImage grabImage(int col, int row, int width, int height) {
         return image.getSubimage(
-                (col * Constants.SPRITE_SHEET_SIZE) - Constants.SPRITE_SHEET_SIZE,
-                (row * Constants.SPRITE_SHEET_SIZE) - Constants.SPRITE_SHEET_SIZE,
+                (col * 83) - 83,
+                (row * 83) - 83,
                 width,
                 height
         );

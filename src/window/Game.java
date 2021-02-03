@@ -1,3 +1,14 @@
+package window;
+
+import framework.Constants;
+import framework.ObjectId;
+import objects.Block;
+import objects.Queen;
+import utilities.BufferedImageLoader;
+import utilities.KeyInput;
+import utilities.MouseInput;
+import utilities.SpriteSheet;
+
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
@@ -108,6 +119,10 @@ public class Game extends Canvas implements Runnable {
                 }
             }
         }
+
+        SpriteSheet ss = new SpriteSheet(pieces);
+
+        handler.addObject(new Queen(50, 50, ObjectId.Queen, ss));
     }
 
     public static void main(String[] args) {

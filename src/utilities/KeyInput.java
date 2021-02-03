@@ -1,3 +1,9 @@
+package utilities;
+
+import framework.GameObject;
+import framework.ObjectId;
+import window.Handler;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
