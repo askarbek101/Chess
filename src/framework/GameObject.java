@@ -3,9 +3,9 @@ package framework;
 import java.awt.*;
 
 public abstract class GameObject {
-    private float x;
-    private float y;
-    private ObjectId objectId;
+    public float x;
+    public float y;
+    public ObjectId objectId;
 
     public GameObject(float x, float y, ObjectId objectId) {
         this.x = x;

@@ -15,34 +15,43 @@ import java.awt.image.BufferedImage;
 public class Game extends Canvas implements Runnable {
     public boolean isRunning = false;
     public Thread thread;
-    public final Handler handler;
+    public Handler handler;
 
     public BufferedImage level;
     public BufferedImage pieces;
+    public SpriteSheet ss;
 
     public Game() {
         new Window(Constants.SIZE, Constants.TITLE, this);
 
-        BufferedImageLoader loader = new BufferedImageLoader();
-        level = loader.loadImage("/resources/board.png");
-        pieces = loader.loadImage("/resources/pieces.png");
+        init();
 
         start();
-
-        handler = new Handler();
-        this.addKeyListener(new KeyInput(handler));
-        this.addMouseListener(new MouseInput(handler));
-
-        loadLevel(level, pieces);
     }
 
-    public void start() {
+    public void init() {
+        handler = new Handler();
+
+        BufferedImageLoader loader = new BufferedImageLoader();
+        level = loader.loadImage("/board.png");
+        pieces = loader.loadImage("/pieces.png");
+
+
+        this.addKeyListener(new KeyInput(handler));
+        this.addMouseListener(new MouseInput(handler));
+        this.addMouseMotionListener(new MouseInput(handler));
+
+        loadLevel(level, pieces);
+
+    }
+
+    public synchronized void start() {
         isRunning = true;
         thread = new Thread(this);
         thread.start();
     }
 
-    public void stop() {
+    public synchronized void stop() {
         isRunning = false;
 
         try {
@@ -79,7 +88,9 @@ public class Game extends Canvas implements Runnable {
         stop();
     }
 
-    public void tick() { handler.tick(); }
+    public void tick() {
+        handler.tick();
+    }
 
     public void render() {
         BufferStrategy bs = this.getBufferStrategy();
@@ -124,10 +135,12 @@ public class Game extends Canvas implements Runnable {
             }
         }
 
-        SpriteSheet ss = new SpriteSheet(pieces);
+        BufferedImage resizedImage = resize(pieces, Constants.BLOCK_SIZE * 6, Constants.BLOCK_SIZE * 2);
 
 
-        handler.addObject(new Bishop(0, 448, ObjectId.Bishop, ss));
+        ss = new SpriteSheet(resizedImage);
+
+        handler.addObject(new Rook(0, 448, ObjectId.Rook, ss));
         handler.addObject(new Knight(64, 448, ObjectId.Knight, ss));
         handler.addObject(new Bishop(128, 448, ObjectId.Bishop, ss));
         handler.addObject(new Queen(192, 448, ObjectId.Queen, ss));
@@ -143,6 +156,18 @@ public class Game extends Canvas implements Runnable {
         handler.addObject(new Pawn(320, 384, ObjectId.Pawn, ss));
         handler.addObject(new Pawn(384, 384, ObjectId.Pawn, ss));
         handler.addObject(new Pawn(448, 384, ObjectId.Pawn, ss));
+
+    }
+
+    public static BufferedImage resize(BufferedImage img, int newW, int newH) {
+        Image tmp = img.getScaledInstance(newW, newH, Image.SCALE_SMOOTH);
+        BufferedImage dimg = new BufferedImage(newW, newH, BufferedImage.TYPE_INT_ARGB);
+
+        Graphics2D g2d = dimg.createGraphics();
+        g2d.drawImage(tmp, 0, 0, null);
+        g2d.dispose();
+
+        return dimg;
     }
 
     public static void main(String[] args) {

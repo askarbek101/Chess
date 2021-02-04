@@ -1,13 +1,20 @@
 package utilities;
 
+import framework.Constants;
+import framework.GameObject;
+import framework.ObjectId;
+import window.Game;
 import window.Handler;
 
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
 public class MouseInput extends MouseAdapter {
-    Handler handler;
+    private final Handler handler;
+    private boolean mousePressed = false;
+    private GameObject object;
 
     public MouseInput(Handler handler) {
         this.handler = handler;
@@ -36,22 +43,29 @@ public class MouseInput extends MouseAdapter {
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        super.mouseDragged(e);
+        for (GameObject tempObject: handler.objects) {
+            if (tempObject.objectId != ObjectId.Block && tempObject.getBounds().contains(e.getPoint())) {
+                System.out.println(tempObject.objectId);
+                System.out.println(e.getPoint().toString());
+
+                tempObject.setX(e.getX() - Constants.BLOCK_SIZE / 2);
+                tempObject.setY(e.getY() - Constants.BLOCK_SIZE / 2);
+            }
+        }
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        super.mouseMoved(e);
+
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        super.mousePressed(e);
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        super.mouseReleased(e);
+        System.out.println("asd");
     }
 
     @Override
