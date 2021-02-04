@@ -1,5 +1,6 @@
 package objects;
 
+import framework.Constants;
 import framework.Coordinates;
 import framework.ObjectId;
 import utilities.SpriteSheet;
@@ -10,7 +11,7 @@ public class King extends Piece {
     public King(float x, float y, ObjectId objectId, SpriteSheet ss) {
         super(x, y, objectId, ss);
 
-        setPiece_image(ss.grabImage(1, 1, 82, 82));
+        setPieceImage(ss.grabImage(1, 1, Constants.BLOCK_SIZE, Constants.BLOCK_SIZE));
     }
 
     @Override

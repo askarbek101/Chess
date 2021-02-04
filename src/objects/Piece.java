@@ -1,5 +1,6 @@
 package objects;
 
+import framework.Constants;
 import framework.Coordinates;
 import framework.GameObject;
 import framework.ObjectId;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 
 public abstract class Piece extends GameObject {
 
-    private BufferedImage piece_image;
+    private BufferedImage pieceImage;
 
     public Piece(float x, float y, ObjectId objectId, SpriteSheet ss) {
         super(x, y, objectId);
@@ -26,22 +27,25 @@ public abstract class Piece extends GameObject {
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(piece_image, (int) getX(), (int) getY(), null);
+        g.drawImage(pieceImage, (int) x, (int) getY(), Constants.BLOCK_SIZE, Constants.BLOCK_SIZE, null);
+
+        g.setColor(Color.BLACK);
+        g.drawRect((int) getX(), (int) getY(), Constants.BLOCK_SIZE, Constants.BLOCK_SIZE);
     }
 
     @Override
     public Rectangle getBounds() {
-        return null;
+        return new Rectangle((int) getX(), (int) getY(), Constants.BLOCK_SIZE, Constants.BLOCK_SIZE);
     }
 
     public abstract ArrayList<Coordinates> possibleMoves();
 
-    public BufferedImage getPiece_image() {
-        return piece_image;
+    public BufferedImage getPieceImage() {
+        return pieceImage;
     }
 
-    public void setPiece_image(BufferedImage piece_image) {
-        this.piece_image = piece_image;
+    public void setPieceImage(BufferedImage pieceImage) {
+        this.pieceImage = pieceImage;
     }
 
 }

@@ -1,17 +1,17 @@
 package objects;
 
+import framework.Constants;
 import framework.Coordinates;
 import framework.ObjectId;
 import utilities.SpriteSheet;
 
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class Bishop extends Piece {
     public Bishop(float x, float y, ObjectId objectId, SpriteSheet ss) {
         super(x, y, objectId, ss);
 
-        setPiece_image(ss.grabImage(3, 1, 82, 82));
+        setPieceImage(ss.grabImage(3, 1, Constants.BLOCK_SIZE, Constants.BLOCK_SIZE));
     }
 
 
