@@ -1,5 +1,7 @@
 package framework;
-
+/**
+ * @deprecated USE JAVA POINT
+ */
 public class Coordinates {
     private int x;
     private int y;
