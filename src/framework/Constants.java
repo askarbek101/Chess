@@ -9,5 +9,4 @@ public final class Constants {
     public static final Dimension SIZE = new Dimension(WIDTH, HEIGHT);
 
     public static final int BLOCK_SIZE = 64;
-    public static final int SPRITE_SHEET_SIZE = 64;
 }
