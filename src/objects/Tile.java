@@ -6,10 +6,10 @@ import framework.ObjectId;
 
 import java.awt.*;
 
-public class Block extends GameObject {
+public class Tile extends GameObject {
     private Color color;
 
-    public Block(float x, float y, ObjectId objectId) {
+    public Tile(float x, float y, ObjectId objectId) {
         super(x, y, objectId);
     }
 
@@ -29,7 +29,7 @@ public class Block extends GameObject {
         return new Rectangle((int) getX(), (int) getY(), Constants.BLOCK_SIZE, Constants.BLOCK_SIZE);
     }
 
-    public void setColour(Color color) {
+    public void setColor(Color color) {
         this.color = color;
     }
 }

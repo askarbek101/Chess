@@ -13,10 +13,11 @@ import java.util.ArrayList;
 public abstract class Piece extends GameObject {
 
     private BufferedImage pieceImage;
+    private boolean white;
 
-    public Piece(float x, float y, ObjectId objectId, SpriteSheet ss) {
+    public Piece(float x, float y, boolean white, ObjectId objectId, SpriteSheet ss) {
         super(x, y, objectId);
-
+        this.white = white;
 
     }
 

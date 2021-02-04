@@ -7,7 +7,7 @@ public abstract class GameObject {
     public float y;
     public ObjectId objectId;
 
-    public GameObject(float x, float y, ObjectId objectId) {
+    public GameObject(float x, float y,  ObjectId objectId) {
         this.x = x;
         this.y = y;
         this.objectId = objectId;

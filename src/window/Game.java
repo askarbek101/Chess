@@ -111,7 +111,7 @@ public class Game extends Canvas implements Runnable {
         bs.show();
     }
 
-    public void loadLevel(BufferedImage image, BufferedImage pieces) {
+    public synchronized void loadLevel(BufferedImage image, BufferedImage pieces) {
         int w = image.getWidth();
         int h = image.getHeight();
 
@@ -123,40 +123,66 @@ public class Game extends Canvas implements Runnable {
                 int blue = (pixel) & 0xff;
 
                 if (red == 0 && green == 0 & blue == 0) {
-                    Block block = new Block(xx * Constants.BLOCK_SIZE, yy * Constants.BLOCK_SIZE, ObjectId.Block);
-                    block.setColour(new Color(0, 148, 255));
+                    Tile block = new Tile(xx * Constants.BLOCK_SIZE, yy * Constants.BLOCK_SIZE,  ObjectId.Block);
+                    block.setColor(new Color(0, 148, 255));
                     handler.addObject(block);
+
                 }
                 if (red == 255 && green == 255 & blue == 255) {
-                    Block block = new Block(xx * Constants.BLOCK_SIZE, yy * Constants.BLOCK_SIZE, ObjectId.Block);
-                    block.setColour(new Color(128, 128, 128));
+                    Tile block = new Tile(xx * Constants.BLOCK_SIZE, yy * Constants.BLOCK_SIZE, ObjectId.Block);
+                    block.setColor(new Color(128, 128, 128));
                     handler.addObject(block);
                 }
             }
         }
 
+
         BufferedImage resizedImage = resize(pieces, Constants.BLOCK_SIZE * 6, Constants.BLOCK_SIZE * 2);
 
 
+        String[][] chessBoardStandard = {
+                {"r","n","b","q","k","b","n","r"},
+                {"p","p","p","p","p","p","p","p"},
+                {"-","-","-","-","-","-","-","-"},
+                {"-","-","-","-","-","-","-","-"},
+                {"-","-","-","-","-","-","-","-"},
+                {"-","-","-","-","-","-","-","-"},
+                {"P","P","P","P","P","P","P","P"},
+                {"R","N","B","Q","K","B","N","R"},
+        };
+
         ss = new SpriteSheet(resizedImage);
-
-        handler.addObject(new Rook(0, 448, ObjectId.Rook, ss));
-        handler.addObject(new Knight(64, 448, ObjectId.Knight, ss));
-        handler.addObject(new Bishop(128, 448, ObjectId.Bishop, ss));
-        handler.addObject(new Queen(192, 448, ObjectId.Queen, ss));
-        handler.addObject(new King(256, 448, ObjectId.King, ss));
-        handler.addObject(new Bishop(320, 448, ObjectId.Bishop, ss));
-        handler.addObject(new Knight(384, 448, ObjectId.Knight, ss));
-        handler.addObject(new Rook(448, 448, ObjectId.Rook, ss));
-        handler.addObject(new Pawn(0, 384, ObjectId.Pawn, ss));
-        handler.addObject(new Pawn(64, 384, ObjectId.Pawn, ss));
-        handler.addObject(new Pawn(128, 384, ObjectId.Pawn, ss));
-        handler.addObject(new Pawn(192, 384, ObjectId.Pawn, ss));
-        handler.addObject(new Pawn(256, 384, ObjectId.Pawn, ss));
-        handler.addObject(new Pawn(320, 384, ObjectId.Pawn, ss));
-        handler.addObject(new Pawn(384, 384, ObjectId.Pawn, ss));
-        handler.addObject(new Pawn(448, 384, ObjectId.Pawn, ss));
-
+        for (int i = 0; i < 8; i++){
+            for (int j = 0; j < 8; j++){
+                switch (chessBoardStandard[i][j]){
+                    case("r"):
+                        handler.addObject(new Rook(j*64, i*64, false, ObjectId.Rook, ss)); break;
+                    case("n"):
+                        handler.addObject(new Knight(j*64, i*64, false, ObjectId.Knight, ss)); break;
+                    case("b"):
+                        handler.addObject(new Bishop(j*64, i*64, false, ObjectId.Bishop, ss)); break;
+                    case("q"):
+                        handler.addObject(new Queen(j*64, i*64, false, ObjectId.Queen, ss)); break;
+                    case("k"):
+                        handler.addObject(new King(j*64, i*64, false, ObjectId.King, ss)); break;
+                    case("p"):
+                        handler.addObject(new Pawn(j*64, i*64, false, ObjectId.Pawn, ss)); break;
+                    case("R"):
+                        handler.addObject(new Rook(j*64, i*64, true, ObjectId.Rook, ss)); break;
+                    case("N"):
+                        handler.addObject(new Knight(j*64, i*64, true, ObjectId.Knight, ss)); break;
+                    case("B"):
+                        handler.addObject(new Bishop(j*64, i*64, true, ObjectId.Bishop, ss)); break;
+                    case("Q"):
+                        handler.addObject(new Queen(j*64, i*64, true, ObjectId.Queen, ss)); break;
+                    case("K"):
+                        handler.addObject(new King(j*64, i*64, true, ObjectId.King, ss)); break;
+                    case("P"):
+                        handler.addObject(new Pawn(j*64, i*64, true, ObjectId.Pawn, ss)); break;
+                    default: break;
+                }
+            }
+        }
     }
 
     public static BufferedImage resize(BufferedImage img, int newW, int newH) {
